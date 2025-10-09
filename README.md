@@ -1,83 +1,71 @@
 # datafun-07-ml
 
-A small machine learning project template and exercises for the "DataFun" series (episode 07).
+This repository contains the coursework notebook and supporting files for the DataFun Module 7 exercises. The primary deliverable is the notebook `sgolla_ml.ipynb` that implements the guided projects: Part 1 (line), Part 2 (SciPy linregress), Part 3 (scikit-learn), Part 4 (insights & communication), and an optional Part 5 (California Housing bonus).
 
-This repository contains the code, environment requirements, and instructions to run experiments, train models, and evaluate results for the course/project. It is intentionally small and educational — ideal for learning the end-to-end ML workflow: data preparation, model training, evaluation, and packaging.
+## What's in this repo
+- `sgolla_ml.ipynb` — main Jupyter notebook with Parts 1–5 (run this).  
+- `data/` — data files used by the notebook (for example `ave_hi_nyc2_jan_1895-2018.csv`).
+- `requirements.txt` — Python dependencies used by the notebook and experiments.
 
-## Contents
-
-- `requirements.txt` — Python dependencies used by the project.
-- `README.md` — this file.
-
-If your repository contains additional folders such as `data/`, `notebooks/`, `src/`, or `models/`, they will be described below.
-
-## Quick start
-
-1. Create and activate a Python virtual environment (recommended):
+## Quick start (Windows / PowerShell)
+1. Open the project folder in VS Code (recommended).
+2. Create and activate a Python virtual environment (recommended):
 
     ```powershell
     python -m venv .venv; .\.venv\Scripts\Activate.ps1
     ```
 
-2. Install dependencies:
+3. Install dependencies:
 
     ```powershell
     pip install -r requirements.txt
     ```
 
-3. Run the example or training script (adjust path if needed):
-
-    ```powershell
-    python src/train.py
-    ```
-
-    If you don't have a `src/train.py`, check the repository for the main script or a `notebooks/` folder and open the notebook in your preferred environment.
-
-## Project structure (recommended)
-
-This project uses a simple, conventional layout. Your repository may vary.
-
-- data/ — raw and processed datasets (not checked into source control unless small and anonymized).
-- notebooks/ — exploratory Jupyter notebooks and visualizations.
-- src/ — Python package with training, evaluation, and utility code.
-- models/ — saved model artifacts and checkpoints.
-- requirements.txt — pinned Python dependencies.
-- README.md — this file.
-
-## Data
-
-Place or download datasets into the `data/` directory. If the dataset is large, include a small script `scripts/download_data.py` to fetch it, or add instructions here explaining where to get the data and how to prepare it.
-
-Example data preparation command:
-
-```powershell
-python src/prepare_data.py --input data/raw --output data/processed
-```
-
-## Usage
-
-- Training a model:
-
-    ```powershell
-    python src/train.py --config configs/train.yaml
-    ```
-
-- Evaluating a model:
-
-    ```powershell
-    python src/evaluate.py --model models/latest.pkl --data data/processed
-    ```
-
-- Running notebooks:
-
-    Open files in `notebooks/` using Jupyter Lab or VS Code's notebook interface.
+4. Start Jupyter and open the notebook:
 
     ```powershell
     jupyter lab
+    # or
+    jupyter notebook
     ```
 
-## Development tips
+5. Open `sgolla_ml.ipynb` and run the notebook cells in order (or use Kernel → Restart & Run All).
 
-- Keep dependencies pinned in `requirements.txt` for reproducibility.
-- Use small subsets of the data during development to iterate faster.
-- Add unit tests for data transformers and training components where possible.
+Notes:
+- The notebook includes an explicit data-acquisition cell that loads `data/ave_hi_nyc2_jan_1895-2018.csv` when present; if that CSV is missing the notebook creates a small demo DataFrame so the flows remain runnable.
+- Part 5 uses scikit-learn's California Housing dataset (fetched locally via scikit-learn) and trains multiple regression models.
+
+## Notebook structure (high level)
+- Introduction: Title, author, and repository link.
+- Part 1 — Chart a Straight Line: Celsius vs Fahrenheit example to explain y = mx + b.
+- Part 2 — Prediction (SciPy):
+  - Data acquisition: loads `data/ave_hi_nyc2_jan_1895-2018.csv` when available.
+  - Cleaning & inspection, descriptive statistics.
+  - Fit line with `scipy.stats.linregress` and predict 2024.
+  - Plot data and best-fit line.
+- Part 3 — Prediction (scikit-learn):
+  - Train/test split, fit `LinearRegression`, evaluate and predict 2024.
+  - Plot train/test points and fitted line.
+- Part 4 — Insights & Communication: technical insights and guidance on presenting results to stakeholders.
+- Part 5 — Bonus (California Housing):
+  - Load the California Housing dataset, train four regressors (LinearRegression, DecisionTree, RandomForest, GradientBoosting), compare R^2 / RMSE, and visualize best-model predictions.
+
+## Reproducibility & environment
+- Use the `requirements.txt` provided to create a reproducible environment. If you change the environment, update the requirements file.
+- The notebook includes a cell that prints versions for Python, pandas, numpy, seaborn, scipy, and scikit-learn — include these when you share results for reproducibility.
+
+## Tips for presentation and storytelling
+- Start with the question: what are you predicting and why it matters.  
+- Summarize data and cleaning steps succinctly.  
+- Present model results (slope, intercept, r, r^2, std_err, MSE, RMSE) and show uncertainty or caveats.  
+- Include visualizations with clear axis labels, annotations for key takeaways (for example the predicted 2024 point), and a one-line summary conclusion.
+
+## Commit & push changes
+When you're ready to save notebook edits:
+
+```powershell
+git pull
+git add sgolla_ml.ipynb
+git commit -m "Update notebook: Part X changes / add Part 5 bonus"
+git push
+```
